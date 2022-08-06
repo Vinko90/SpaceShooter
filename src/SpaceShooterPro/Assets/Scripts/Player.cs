@@ -32,6 +32,7 @@ public class Player : MonoBehaviour
     #endregion
     
     private float _canFire = -1f;
+    private SpawnManager _spawnManager;
     
     /// <summary>
     /// Start is called before the first frame update.
@@ -40,6 +41,12 @@ public class Player : MonoBehaviour
     private void Start()
     {
         transform.position = new Vector3(0, 0, 0);
+        _spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
+
+        if (_spawnManager == null)
+        {
+            Debug.LogError("Spawn Manager is NULL");
+        }
     }
     
     /// <summary>
@@ -105,6 +112,7 @@ public class Player : MonoBehaviour
 
         if (_playerLife < 1)
         {
+            _spawnManager.StopSpawnManager();
             Destroy(gameObject);
         }
     }
