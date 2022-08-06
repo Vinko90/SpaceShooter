@@ -22,7 +22,7 @@ public class Player : MonoBehaviour
     private float _horizontalMinBoundary = -11.3f;
 
     [SerializeField]
-    private float _laserSpawnOffset = 0.8f;
+    private float _laserSpawnOffset = 1.05f;
     
     [SerializeField] 
     private float _fireRate = 0.15f;

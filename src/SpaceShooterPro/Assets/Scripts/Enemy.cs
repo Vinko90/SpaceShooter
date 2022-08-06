@@ -31,7 +31,7 @@ public class Enemy : MonoBehaviour
     /// Trigger when this object enter in a collision.
     /// </summary>
     /// <param name="other">The object this collided with</param>
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         //Damage player if this enemy hit
         if (other.tag == "Player")
