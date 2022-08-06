@@ -2,11 +2,13 @@ using UnityEngine;
 
 public class Laser : MonoBehaviour
 {
+    #region Editor Settings
     [SerializeField]
     private float _laserSpeed = 8.0f;
     
     [SerializeField]
     private float _autoDestroyOffset = 8.0f;
+    #endregion
     
     /// <summary>
     /// Update is called once per frame

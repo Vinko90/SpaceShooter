@@ -3,6 +3,9 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     #region Editor Settings
+    [SerializeField] 
+    private int _playerLife = 3;
+    
     [SerializeField]
     private float _playerSpeed = 3.5f;
 
@@ -91,5 +94,18 @@ public class Player : MonoBehaviour
         _canFire = Time.time + _fireRate;
         Vector3 spawnLocation = transform.position + new Vector3(0, _laserSpawnOffset, 0);
         Instantiate(_laserPrefab, spawnLocation, Quaternion.identity);
+    }
+
+    /// <summary>
+    /// Damage this player life
+    /// </summary>
+    public void Damage()
+    {
+        _playerLife--;
+
+        if (_playerLife < 1)
+        {
+            Destroy(gameObject);
+        }
     }
 }
