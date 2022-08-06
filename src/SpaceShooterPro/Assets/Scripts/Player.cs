@@ -1,25 +1,62 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public float playerSpeed = 3.5f;
+    public float PlayerSpeed = 3.5f;
+
+    public float VerticalMaxBoundary = 0;
+
+    public float VerticalMinBoundary = -3.8f;
+
+    public float HorizontalMaxBoundary = 11.3f;
+
+    public float HorizontalMinBoundary = -11.3f;
     
-    // Start is called before the first frame update
+    /// <summary>
+    /// Start is called before the first frame update.
+    /// Position player to center screen.
+    /// </summary>
     void Start()
     {
-        //Start by positioning player to (0, 0, 0)
         transform.position = new Vector3(0, 0, 0);
     }
-
-    // Update is called once per frame
+    
+    /// <summary>
+    /// Update is called once per frame.
+    /// </summary>
     void Update()
     {
-        //Get movement value from key manager
+        CalculateMovement();
+    }
+
+    /// <summary>
+    /// Get vertical and horizontal movement value from key manager
+    /// and position player within boundaries.
+    /// </summary>
+    void CalculateMovement()
+    {
         float horizontalInput = Input.GetAxis("Horizontal");
+        float verticalInput = Input.GetAxis("Vertical");
+
+        Vector3 newPlayerPosition = new Vector3(horizontalInput, verticalInput, 0);
+        transform.Translate(newPlayerPosition * PlayerSpeed * Time.deltaTime);
         
-        //Move Player: Left/Right * HorizontalInput * PlayerSpeed * Time
-        transform.Translate(Vector3.right * horizontalInput * playerSpeed * Time.deltaTime);
+        //Clamp Y Boundaries
+        transform.position = new Vector3
+           {
+               x = transform.position.x,
+               y = Mathf.Clamp(transform.position.y, VerticalMinBoundary, VerticalMaxBoundary),
+               z = 0
+           };
+        
+        //Check X Boundaries
+        if (transform.position.x > HorizontalMaxBoundary)
+        {
+            transform.position = new Vector3(HorizontalMinBoundary, transform.position.y, 0);
+        }
+        else if (transform.position.x < HorizontalMinBoundary)
+        {
+            transform.position = new Vector3(HorizontalMaxBoundary, transform.position.y, 0);
+        }
     }
 }

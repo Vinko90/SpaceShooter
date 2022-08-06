@@ -3,4 +3,4 @@ This repo contain the source code of a space-shooting game developed in Unity. I
 
 # Dependencies
 (To Be Updated while development progress)
-- Unity: 2020.3
+- Unity: 2021.3.7f1
