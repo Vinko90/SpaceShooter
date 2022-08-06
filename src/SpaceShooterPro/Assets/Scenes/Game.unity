@@ -411,3 +411,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d476eabcf405e4020bab5da8721042d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerSpeed: 3.5
+  VerticalMaxBoundary: 0
+  VerticalMinBoundary: -3.8
+  HorizontalMaxBoundary: 11.3
+  HorizontalMinBoundary: -11.3
+  _laserPrefab: {fileID: 3338519525769664139, guid: d1b9b4fa1894946de9af771d45d557a0, type: 3}
