@@ -10,6 +10,9 @@ public class SpawnManager : MonoBehaviour
     [SerializeField]
     private GameObject _enemyContainer;
     
+    [SerializeField]
+    private GameObject _tripleShotPrefab;
+    
     [SerializeField] 
     private float _spawnRate = 5.0f;
 
@@ -31,6 +34,7 @@ public class SpawnManager : MonoBehaviour
     private void Start()
     {
         StartCoroutine(SpawnRoutine());
+        StartCoroutine(SpawnTripleShotRoutine());
     }
     
     /// <summary>
@@ -54,6 +58,25 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Spawn coroutine to auto spawn triple shot power up
+    /// </summary>
+    /// <returns>Routine yield</returns>
+    private IEnumerator SpawnTripleShotRoutine()
+    {
+        while (_stopSpawning == false)
+        {
+            var positionToSpawn = new Vector3
+            {
+                x = Random.Range(_randomSpawnMinOffset, _randomSpawnMaxOffset),
+                y = _verticalSpawnOffset,
+                z = 0
+            };
+            Instantiate(_tripleShotPrefab, positionToSpawn, Quaternion.identity);
+            yield return new WaitForSeconds(Random.Range(3, 8));
+        }
+    }
+    
     /// <summary>
     /// Stop Spawn Manager.
     /// </summary>

@@ -193,7 +193,9 @@ MonoBehaviour:
   _horizontalMinBoundary: -11.3
   _laserSpawnOffset: 0.8
   _fireRate: 0.15
+  _isTripleShotActive: 0
   _laserPrefab: {fileID: 1610607873717596031, guid: d1b9b4fa1894946de9af771d45d557a0, type: 3}
+  _laserTripleShotPrefab: {fileID: 2578431489047558031, guid: 3e0ecb22b1ba547bdaeefa19e8b41057, type: 3}
 --- !u!212 &342544843
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -496,6 +498,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyPrefab: {fileID: 3354748251175247837, guid: 1e9a4dd1ac5524236807e57359c56639, type: 3}
   _enemyContainer: {fileID: 113886347}
+  _tripleShotPrefab: {fileID: 4947767879075214517, guid: b5dd0c82c168d42de9cc203ee506b95b, type: 3}
   _spawnRate: 5
   _randomSpawnMinOffset: -8
   _randomSpawnMaxOffset: 8

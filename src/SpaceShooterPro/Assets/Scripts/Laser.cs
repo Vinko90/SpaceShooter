@@ -34,6 +34,11 @@ public class Laser : MonoBehaviour
     {
         if (transform.position.y > _autoDestroyOffset)
         {
+            //Check if this object has a parent, in case destroy
+            if (transform.parent != null)
+            {
+                Destroy(transform.parent.gameObject);
+            }
             Destroy(gameObject);
         }
     }

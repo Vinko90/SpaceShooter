@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -26,9 +27,15 @@ public class Player : MonoBehaviour
     
     [SerializeField] 
     private float _fireRate = 0.15f;
-
+    
+    [SerializeField] 
+    private bool _isTripleShotActive = false;
+    
     [SerializeField]
     private GameObject _laserPrefab;
+    
+    [SerializeField]
+    private GameObject _laserTripleShotPrefab;
     #endregion
     
     private float _canFire = -1f;
@@ -99,8 +106,16 @@ public class Player : MonoBehaviour
     private void FireLaser()
     {
         _canFire = Time.time + _fireRate;
-        Vector3 spawnLocation = transform.position + new Vector3(0, _laserSpawnOffset, 0);
-        Instantiate(_laserPrefab, spawnLocation, Quaternion.identity);
+
+        if (_isTripleShotActive)
+        {
+            Instantiate(_laserTripleShotPrefab, transform.position, Quaternion.identity);
+        }
+        else
+        {
+            Vector3 spawnLocation = transform.position + new Vector3(0, _laserSpawnOffset, 0);
+            Instantiate(_laserPrefab, spawnLocation, Quaternion.identity);
+        }
     }
 
     /// <summary>
@@ -115,5 +130,24 @@ public class Player : MonoBehaviour
             _spawnManager.StopSpawnManager();
             Destroy(gameObject);
         }
+    }
+
+    /// <summary>
+    /// Enable Triple Shot for limited time
+    /// </summary>
+    public void EnableTripleShot()
+    {
+        _isTripleShotActive = true;
+        StartCoroutine(TripleShotPowerDownRoutine());
+    }
+
+    /// <summary>
+    /// Disable triple shot after certain time.
+    /// </summary>
+    /// <returns>Enumerator yield</returns>
+    private IEnumerator TripleShotPowerDownRoutine()
+    {
+        yield return new WaitForSeconds(5.0f);
+        _isTripleShotActive = false;
     }
 }
