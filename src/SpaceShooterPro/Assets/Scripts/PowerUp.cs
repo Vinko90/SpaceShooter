@@ -62,7 +62,7 @@ public class PowerUp : MonoBehaviour
                         break;
                     case PowerUpType.Speed: player.EnableSpeedBoost();
                         break;
-                    case PowerUpType.Shield: Debug.Log("Enable Shield");
+                    case PowerUpType.Shield: player.EnableShield();
                         break;
                     default: Debug.LogError("Unsupported Power type!!");
                         break;

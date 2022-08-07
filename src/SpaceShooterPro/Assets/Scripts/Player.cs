@@ -37,11 +37,17 @@ public class Player : MonoBehaviour
     [SerializeField] 
     private bool _isSpeedBoostActive = false;
     
+    [SerializeField] 
+    private bool _isShieldActive = false;
+    
     [SerializeField]
     private GameObject _laserPrefab;
     
     [SerializeField]
     private GameObject _laserTripleShotPrefab;
+
+    [SerializeField] 
+    private GameObject _shieldPrefab;
     #endregion
     
     private float _canFire = -1f;
@@ -129,8 +135,16 @@ public class Player : MonoBehaviour
     /// </summary>
     public void Damage()
     {
-        _playerLife--;
-
+        if (_isShieldActive)
+        {
+            _isShieldActive = false;
+            _shieldPrefab.SetActive(false);
+        }
+        else
+        {
+            _playerLife--;
+        }
+        
         if (_playerLife < 1)
         {
             _spawnManager.StopSpawnManager();
@@ -155,6 +169,15 @@ public class Player : MonoBehaviour
         _isSpeedBoostActive = true;
         _playerSpeed *= _speedMultiplier;
         StartCoroutine(SpeedBoostPowerDownRoutine());
+    }
+
+    /// <summary>
+    /// Enable Player Shield
+    /// </summary>
+    public void EnableShield()
+    {
+        _isShieldActive = true;
+        _shieldPrefab.SetActive(true);
     }
 
     /// <summary>

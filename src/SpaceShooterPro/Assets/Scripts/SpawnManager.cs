@@ -73,7 +73,7 @@ public class SpawnManager : MonoBehaviour
                 z = 0
             };
 
-            var randomPowerUp = Random.Range(0, 2);
+            var randomPowerUp = Random.Range(0, 3);
             Instantiate(_powerUpPrefabs[randomPowerUp], positionToSpawn, Quaternion.identity);
             yield return new WaitForSeconds(Random.Range(3, 8));
         }
