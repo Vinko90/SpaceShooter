@@ -27,11 +27,8 @@ public class SpawnManager : MonoBehaviour
     #endregion
 
     private bool _stopSpawning = false;
-    
-    /// <summary>
-    /// Start is called before the first frame update 
-    /// </summary>
-    private void Start()
+
+    public void StartSpawning()
     {
         StartCoroutine(SpawnEnemyRoutine());
         StartCoroutine(SpawnPowerUpsRoutine());
@@ -43,6 +40,7 @@ public class SpawnManager : MonoBehaviour
     /// <returns>Routine yield</returns>
     private IEnumerator SpawnEnemyRoutine()
     {
+        yield return new WaitForSeconds(3.0f);
         while (_stopSpawning == false)
         {
             var positionToSpawn = new Vector3
@@ -64,6 +62,7 @@ public class SpawnManager : MonoBehaviour
     /// <returns>Routine yield</returns>
     private IEnumerator SpawnPowerUpsRoutine()
     {
+        yield return new WaitForSeconds(3.0f);
         while (_stopSpawning == false)
         {
             var positionToSpawn = new Vector3

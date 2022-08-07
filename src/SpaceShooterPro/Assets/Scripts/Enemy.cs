@@ -20,6 +20,7 @@ public class Enemy : MonoBehaviour
     #endregion
 
     private Player _player;
+    private Animator _animator;
 
     /// <summary>
     /// Execute on the first frame run
@@ -27,6 +28,17 @@ public class Enemy : MonoBehaviour
     private void Start()
     {
         _player = GameObject.Find("Player").GetComponent<Player>();
+        _animator = gameObject.GetComponent<Animator>();
+
+        if (_player == null)
+        {
+            Debug.LogError("Player is NULL!!");
+        }
+
+        if (_animator == null)
+        {
+            Debug.LogError("Enemy animator is NULL!!");
+        }
     }
     
     /// <summary>
@@ -51,7 +63,9 @@ public class Enemy : MonoBehaviour
             {
                 player.Damage();
             }
-            Destroy(gameObject);
+            _animator.SetTrigger("OnEnemyDeath");
+            _enemySpeed = 0;
+            Destroy(gameObject, 2.50f);
         }
 
         //Destroy this enemy and laser if they collide
@@ -62,7 +76,9 @@ public class Enemy : MonoBehaviour
             {
                 _player.AddScore(10);
             }
-            Destroy(gameObject);
+            _animator.SetTrigger("OnEnemyDeath");
+            _enemySpeed = 0;
+            Destroy(gameObject, 2.50f);
         }
     }
 

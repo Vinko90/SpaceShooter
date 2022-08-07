@@ -51,6 +51,12 @@ public class Player : MonoBehaviour
 
     [SerializeField] 
     private GameObject _shieldPrefab;
+
+    [SerializeField]
+    private GameObject _rightEngine;
+
+    [SerializeField]
+    private GameObject _leftEngine;
     #endregion
     
     private float _canFire = -1f;
@@ -153,6 +159,16 @@ public class Player : MonoBehaviour
         else
         {
             _playerLife--;
+
+            if (_playerLife == 2)
+            {
+                _leftEngine.SetActive(true);
+            }
+            else if (_playerLife == 1)
+            {
+                _rightEngine.SetActive(true);
+            }
+            
             _uiManager.UpdateLifeImage(_playerLife);
         }
         
