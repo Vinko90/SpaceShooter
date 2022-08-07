@@ -11,6 +11,9 @@ public class Player : MonoBehaviour
     private float _playerSpeed = 3.5f;
 
     [SerializeField]
+    private float _speedMultiplier = 2f;
+
+    [SerializeField]
     private float _verticalMaxBoundary = 0;
 
     [SerializeField]
@@ -30,6 +33,9 @@ public class Player : MonoBehaviour
     
     [SerializeField] 
     private bool _isTripleShotActive = false;
+
+    [SerializeField] 
+    private bool _isSpeedBoostActive = false;
     
     [SerializeField]
     private GameObject _laserPrefab;
@@ -142,6 +148,16 @@ public class Player : MonoBehaviour
     }
 
     /// <summary>
+    /// Enable Speed Boost power up
+    /// </summary>
+    public void EnableSpeedBoost()
+    {
+        _isSpeedBoostActive = true;
+        _playerSpeed *= _speedMultiplier;
+        StartCoroutine(SpeedBoostPowerDownRoutine());
+    }
+
+    /// <summary>
     /// Disable triple shot after certain time.
     /// </summary>
     /// <returns>Enumerator yield</returns>
@@ -149,5 +165,16 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(5.0f);
         _isTripleShotActive = false;
+    }
+
+    /// <summary>
+    /// Disable speed boost after certain time.
+    /// </summary>
+    /// <returns>Enumerator yield</returns>
+    private IEnumerator SpeedBoostPowerDownRoutine()
+    {
+        yield return new WaitForSeconds(5.0f);
+        _isSpeedBoostActive = false;
+        _playerSpeed /= _speedMultiplier;
     }
 }

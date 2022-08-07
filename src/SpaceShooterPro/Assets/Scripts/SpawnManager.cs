@@ -11,7 +11,7 @@ public class SpawnManager : MonoBehaviour
     private GameObject _enemyContainer;
     
     [SerializeField]
-    private GameObject _tripleShotPrefab;
+    private GameObject[] _powerUpPrefabs;
     
     [SerializeField] 
     private float _spawnRate = 5.0f;
@@ -33,15 +33,15 @@ public class SpawnManager : MonoBehaviour
     /// </summary>
     private void Start()
     {
-        StartCoroutine(SpawnRoutine());
-        StartCoroutine(SpawnTripleShotRoutine());
+        StartCoroutine(SpawnEnemyRoutine());
+        StartCoroutine(SpawnPowerUpsRoutine());
     }
     
     /// <summary>
     /// Spawn coroutine to auto spawn enemies
     /// </summary>
     /// <returns>Routine yield</returns>
-    private IEnumerator SpawnRoutine()
+    private IEnumerator SpawnEnemyRoutine()
     {
         while (_stopSpawning == false)
         {
@@ -59,10 +59,10 @@ public class SpawnManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Spawn coroutine to auto spawn triple shot power up
+    /// Spawn coroutine to auto spawn random power ups
     /// </summary>
     /// <returns>Routine yield</returns>
-    private IEnumerator SpawnTripleShotRoutine()
+    private IEnumerator SpawnPowerUpsRoutine()
     {
         while (_stopSpawning == false)
         {
@@ -72,7 +72,9 @@ public class SpawnManager : MonoBehaviour
                 y = _verticalSpawnOffset,
                 z = 0
             };
-            Instantiate(_tripleShotPrefab, positionToSpawn, Quaternion.identity);
+
+            var randomPowerUp = Random.Range(0, 2);
+            Instantiate(_powerUpPrefabs[randomPowerUp], positionToSpawn, Quaternion.identity);
             yield return new WaitForSeconds(Random.Range(3, 8));
         }
     }

@@ -1,14 +1,28 @@
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class PowerUp : MonoBehaviour
 {
-    #region Editor Settings
+    #region Editor Setting
+    [SerializeField] 
+    private PowerUpType _type;
+    
     [SerializeField]
     private float _dropSpeed = 3.0f;
     
     [SerializeField]
     private float _bottomClearOffset = -4.5f;
     #endregion
+
+    /// <summary>
+    /// Supported Power Up Types
+    /// </summary>
+    private enum PowerUpType
+    {
+        Triple = 0,
+        Speed = 1,
+        Shield = 2
+    }
     
     /// <summary>
     /// Update is called once per frame 
@@ -42,7 +56,17 @@ public class PowerUp : MonoBehaviour
             var player = other.transform.GetComponent<Player>();
             if (player != null)
             {
-                player.EnableTripleShot();
+                switch (_type)
+                {
+                    case PowerUpType.Triple: player.EnableTripleShot();
+                        break;
+                    case PowerUpType.Speed: player.EnableSpeedBoost();
+                        break;
+                    case PowerUpType.Shield: Debug.Log("Enable Shield");
+                        break;
+                    default: Debug.LogError("Unsupported Power type!!");
+                        break;
+                }
             }
             Destroy(gameObject);
         }
