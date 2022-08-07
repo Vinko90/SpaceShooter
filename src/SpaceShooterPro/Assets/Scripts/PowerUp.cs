@@ -12,6 +12,9 @@ public class PowerUp : MonoBehaviour
     
     [SerializeField]
     private float _bottomClearOffset = -4.5f;
+    
+    [SerializeField]
+    private AudioClip _audioClip;
     #endregion
 
     /// <summary>
@@ -54,6 +57,7 @@ public class PowerUp : MonoBehaviour
         if (other.tag == "Player")
         {
             var player = other.transform.GetComponent<Player>();
+            AudioSource.PlayClipAtPoint(_audioClip, transform.position);
             if (player != null)
             {
                 switch (_type)
