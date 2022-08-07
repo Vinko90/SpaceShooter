@@ -5,6 +5,9 @@ public class Player : MonoBehaviour
 {
     #region Editor Settings
     [SerializeField] 
+    private int _playerScore = 0;
+    
+    [SerializeField] 
     private int _playerLife = 3;
     
     [SerializeField]
@@ -52,6 +55,7 @@ public class Player : MonoBehaviour
     
     private float _canFire = -1f;
     private SpawnManager _spawnManager;
+    private UIManager _uiManager;
     
     /// <summary>
     /// Start is called before the first frame update.
@@ -61,10 +65,16 @@ public class Player : MonoBehaviour
     {
         transform.position = new Vector3(0, 0, 0);
         _spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
-
+        _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
+        
         if (_spawnManager == null)
         {
             Debug.LogError("Spawn Manager is NULL");
+        }
+
+        if (_uiManager == null)
+        {
+            Debug.LogError("UI Manager is NULL");
         }
     }
     
@@ -143,6 +153,7 @@ public class Player : MonoBehaviour
         else
         {
             _playerLife--;
+            _uiManager.UpdateLifeImage(_playerLife);
         }
         
         if (_playerLife < 1)
@@ -178,6 +189,16 @@ public class Player : MonoBehaviour
     {
         _isShieldActive = true;
         _shieldPrefab.SetActive(true);
+    }
+
+    /// <summary>
+    /// Add score
+    /// </summary>
+    /// <param name="points">The points that need to be added</param>
+    public void AddScore(int points)
+    {
+        _playerScore += points;
+        _uiManager.UpdateScore(_playerScore);
     }
 
     /// <summary>
