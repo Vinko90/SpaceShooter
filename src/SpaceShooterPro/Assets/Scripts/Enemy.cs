@@ -87,6 +87,7 @@ public class Enemy : MonoBehaviour
             _animator.SetTrigger("OnEnemyDeath");
             _enemySpeed = 0;
             _audioSource.Play();
+            Destroy(GetComponent<Collider2D>());
             Destroy(gameObject, 2.50f);
         }
     }
